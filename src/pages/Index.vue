@@ -1,10 +1,42 @@
 <template>
-  <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+  <q-page>
+    <div class="row q-px-sm bg-blue-grey-5">
+      <!-- header -->
+    </div>
+
+    <div class="row">
+      <div class="col col-grow list-col">
+        <!-- filter textbox -->
+        <!-- file list -->
+      </div>
+      <div class="col editor-col">
+        <!-- file path -->
+        <!-- editor -->
+      </div>
+    </div>
   </q-page>
 </template>
 
-<style>
+<style lang="stylus" scoped>
+.q-page
+  height 100%
+  min-height 100%
+  display flex
+  flex-direction column
+  > :nth-child(1)
+    flex 0 0 auto
+  > :last-child
+    flex 1 0 0
+  .editor-col .list-col
+    display flex
+    flex-direction column
+    > :last-child
+      flex 1 0 0
+      overflow auto
+.list-col
+  width 30%
+  max-width 30%
+  border-right solid 1px $blue-grey-3
 </style>
 
 <script>
