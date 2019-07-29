@@ -10,5 +10,14 @@
 <script>
 export default {
   name: 'PageIndex',
+  data() {
+    return {
+      currentDir: process.cwd(),
+      currentFile: null,
+      filterPattern: '',
+      list: [],
+      editor: null,
+    };
+  },
 };
 </script>
