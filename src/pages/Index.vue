@@ -2,6 +2,17 @@
   <q-page>
     <div class="row q-px-sm bg-blue-grey-5">
       <!-- header -->
+      <!-- directory path -->
+      <div class="col-xs-12">
+        <q-input dense dark borderless :value="currentDir">
+          <template v-slot:prepend>
+            <q-icon name="folder" />
+          </template>
+          <template v-slot:append>
+            <q-icon name="more_hoiz" class="cursor-pointer" />
+          </template>
+        </q-input>
+      </div>
     </div>
 
     <div class="row">
