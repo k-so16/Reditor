@@ -8,6 +8,8 @@
 </style>
 
 <script>
+import fs from 'fs';
+
 export default {
   name: 'PageIndex',
   data() {
@@ -18,6 +20,23 @@ export default {
       list: [],
       editor: null,
     };
+  },
+  methods: {
+    loadItems() {
+      fs.readdir(this.currentDir, (err, files) => {
+        if (err) throw err;
+        this.list = files.map((file) => {
+          const isFile = fs.statSync(file).isFile();
+          return {
+            name: file,
+            isFile,
+          };
+        });
+      });
+    },
+  },
+  mounted() {
+    this.loadItems();
   },
 };
 </script>
