@@ -8,6 +8,19 @@
       <div class="col col-grow list-col">
         <!-- filter textbox -->
         <!-- file list -->
+        <q-list dense>
+          <q-item clickable
+            v-for="item in list" :key="`item_${item.name}`"
+            >
+            <q-item-section avatar>
+              <q-icon
+                :color="item.isFile ? 'blue-grey-3' : 'yellow-14'"
+                :name="item.isFile ? 'insert_drive_file' : 'folder'"
+                />
+            </q-item-section>
+            <q-item-section>{{ item.name }}</q-item-section>
+          </q-item>
+        </q-list>
       </div>
       <div class="col editor-col">
         <!-- file path -->
