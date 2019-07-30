@@ -28,6 +28,7 @@
         <q-list dense>
           <q-item clickable
             v-for="item in displayItems" :key="`item_${item.name}`"
+            @click="setCurrentItem(item)"
             >
             <q-item-section avatar>
               <q-icon
@@ -72,6 +73,7 @@
 
 <script>
 import fs from 'fs';
+import path from 'path';
 import 'ace-min-noconflict';
 
 export default {
@@ -90,13 +92,23 @@ export default {
       fs.readdir(this.currentDir, (err, files) => {
         if (err) throw err;
         this.list = files.map((file) => {
-          const isFile = fs.statSync(file).isFile();
+          const absolutePath = path.resolve(this.currentDir, file);
+          const isFile = fs.statSync(absolutePath).isFile();
           return {
             name: file,
+            absolutePath,
             isFile,
           };
         });
       });
+    },
+    setCurrentItem(item) {
+      if (item.isFile) {
+        this.currentFile = item;
+        fs.readFile(item.absolutePath, 'utf-8', (err, data) => {
+          this.editor.setValue(data, -1);
+        });
+      }
     },
   },
   computed: {
