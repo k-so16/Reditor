@@ -104,6 +104,10 @@ export default {
             absolutePath,
             isFile,
           };
+        }).sort((a, b) => {
+          if (a.isFile && !b.isFile) return 1;
+          if (!a.isFile && b.isFile) return -1;
+          return a.name < b.name;
         });
       });
     },
