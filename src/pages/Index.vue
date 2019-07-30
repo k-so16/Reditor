@@ -9,7 +9,9 @@
             <q-icon name="folder" />
           </template>
           <template v-slot:append>
-            <q-icon name="more_hoiz" class="cursor-pointer" />
+            <q-icon name="more_hoiz" class="cursor-pointer"
+              @click="selectDirectoryViaDialog"
+              />
           </template>
         </q-input>
       </div>
@@ -72,6 +74,7 @@
 </style>
 
 <script>
+import { remote } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import 'ace-min-noconflict';
@@ -115,6 +118,16 @@ export default {
     moveCurrentDir(dir) {
       this.currentDir = dir;
       this.loadItems();
+    },
+    selectDirectoryViaDialog() {
+      const dirs = remote.dialog.showOpenDialog(
+        remote.BrowserWindow.getFocusedWindow(),
+        {
+          properties: ['openDirectory'],
+          defaultPath: process.cwd(),
+        },
+      );
+      this.moveCurrentDir(dirs[0]);
     },
   },
   computed: {
