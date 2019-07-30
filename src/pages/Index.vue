@@ -57,7 +57,7 @@
     flex 0 0 auto
   > :last-child
     flex 1 0 0
-  .editor-col .list-col
+  .editor-col, .list-col
     display flex
     flex-direction column
     > :last-child
