@@ -57,12 +57,12 @@
     flex 0 0 auto
   > :last-child
     flex 1 0 0
-  .editor-col, .list-col
-    display flex
-    flex-direction column
-    > :last-child
-      flex 1 0 0
-      overflow auto
+.editor-col, .list-col
+  display flex
+  flex-direction column
+  > :last-child
+    flex 1 0 0
+    overflow auto
 .list-col
   width 30%
   max-width 30%
