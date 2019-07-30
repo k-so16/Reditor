@@ -45,6 +45,11 @@
       </div>
       <div class="col editor-col">
         <!-- file path -->
+        <div class="bg-blue-grey-6">
+          <q-input dense dark borderless readonly class="q-mx-sm"
+            :value="currentFile ? currentFile.name : 'New File'"
+            />
+        </div>
         <!-- editor -->
         <div id="editor"></div>
       </div>
