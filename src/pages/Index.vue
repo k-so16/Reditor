@@ -18,10 +18,16 @@
     <div class="row">
       <div class="col col-grow list-col">
         <!-- filter textbox -->
+        <div class="bg-blue-grey-6">
+          <q-input dense dark borderless class="q-mx-sm"
+            v-model="filterPattern"
+            >
+          </q-input>
+        </div>
         <!-- file list -->
         <q-list dense>
           <q-item clickable
-            v-for="item in list" :key="`item_${item.name}`"
+            v-for="item in displayItems" :key="`item_${item.name}`"
             >
             <q-item-section avatar>
               <q-icon
@@ -89,6 +95,13 @@ export default {
           };
         });
       });
+    },
+  },
+  computed: {
+    displayItems() {
+      if (!this.filterPattern) return this.list;
+      const regex = new RegExp(this.filterPattern);
+      return this.list.filter(x => regex.test(x.name));
     },
   },
   mounted() {
