@@ -30,6 +30,7 @@
         <q-list dense>
           <q-item clickable
             v-for="item in displayItems" :key="`item_${item.name}`"
+            :class="item.isOpened ? 'text-bold' : ''"
             @click="setCurrentItem(item)"
             >
             <q-item-section avatar>
@@ -98,6 +99,7 @@ export default {
           const absolutePath = path.resolve(this.currentDir, file);
           const isFile = fs.statSync(absolutePath).isFile();
           return {
+            isOpened: false,
             name: file,
             absolutePath,
             isFile,
@@ -107,6 +109,10 @@ export default {
     },
     setCurrentItem(item) {
       if (item.isFile) {
+        if (this.currentFile) {
+          this.currentFile.isOpened = false;
+        }
+        item.isOpened = true;
         this.currentFile = item;
         fs.readFile(item.absolutePath, 'utf-8', (err, data) => {
           this.editor.setValue(data, -1);
