@@ -42,6 +42,7 @@
       <div class="col editor-col">
         <!-- file path -->
         <!-- editor -->
+        <div id="editor"></div>
       </div>
     </div>
   </q-page>
@@ -71,6 +72,7 @@
 
 <script>
 import fs from 'fs';
+import 'ace-min-noconflict';
 
 export default {
   name: 'PageIndex',
@@ -105,6 +107,7 @@ export default {
     },
   },
   mounted() {
+    this.editor = window.ace.edit('editor');
     this.loadItems();
   },
 };
