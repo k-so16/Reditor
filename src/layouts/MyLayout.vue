@@ -34,7 +34,10 @@ export default {
   name: 'MyLayout',
   data() {
     return {
-      file: null,
+      file: {
+        path: null,
+        content: null,
+      },
     };
   },
   methods: {
@@ -54,6 +57,16 @@ export default {
       remote.BrowserWindow.getFocusedWindow().close();
     },
     save() {
+      if (!this.file.path) {
+        const filePath = remote.dialog.showSaveDialog(
+          remote.BrowserWindow.getFocusedWindow(),
+          {
+            defaultPath: process.cwd(),
+          },
+        );
+        if (!filePath) return;
+        this.file.path = filePath;
+      }
       fs.writeFile(this.file.path, this.file.content, { encoding: 'utf-8' }, (err) => {
         if (err) throw err;
       });

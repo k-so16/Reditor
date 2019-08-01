@@ -173,7 +173,7 @@ export default {
   mounted() {
     this.editor = window.ace.edit('editor');
     this.editor.on('input', () => this.$emit('update:file', ({
-      path: this.currentFile.absolutePath,
+      path: this.currentFile ? this.currentFile.absolutePath : null,
       content: this.editor.getValue(),
     })));
     this.loadItems();
