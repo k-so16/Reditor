@@ -1,14 +1,14 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-bar class="q-electron-drag">
+    <q-bar class="q-electron-drag bg-black text-white">
       <div class="cursor-pointer q-electron-drag--exception">
         File
         <q-menu>
           <q-list dense>
-            <q-item clickable>
-              <q-item-section @click="save">Save</q-item-section>
+            <q-item clickable v-close-popup @click="save">
+              <q-item-section>Save</q-item-section>
             </q-item>
-            <q-item clickable>
+            <q-item clickable v-close-popup @click="close">
               <q-item-section>Quit</q-item-section>
             </q-item>
           </q-list>
