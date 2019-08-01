@@ -6,7 +6,7 @@
         <q-menu>
           <q-list dense>
             <q-item clickable>
-              <q-item-section>Save</q-item-section>
+              <q-item-section @click="save">Save</q-item-section>
             </q-item>
             <q-item clickable>
               <q-item-section>Quit</q-item-section>
@@ -20,7 +20,7 @@
       <q-btn dense flat icon="close" @click="close" />
     </q-bar>
     <q-page-container>
-      <router-view />
+      <router-view :file.sync="file" />
     </q-page-container>
   </q-layout>
 </template>
@@ -28,11 +28,13 @@
 <script>
 import { openURL } from 'quasar';
 import { remote } from 'electron';
+import fs from 'fs';
 
 export default {
   name: 'MyLayout',
   data() {
     return {
+      file: null,
     };
   },
   methods: {
@@ -50,6 +52,11 @@ export default {
     },
     close() {
       remote.BrowserWindow.getFocusedWindow().close();
+    },
+    save() {
+      fs.writeFile(this.file.path, this.file.content, { encoding: 'utf-8' }, (err) => {
+        if (err) throw err;
+      });
     },
   },
 };

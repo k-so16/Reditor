@@ -96,6 +96,9 @@ import 'ace-min-noconflict';
 
 export default {
   name: 'PageIndex',
+  props: {
+    file: Object,
+  },
   data() {
     return {
       currentDir: process.cwd(),
@@ -169,6 +172,10 @@ export default {
   },
   mounted() {
     this.editor = window.ace.edit('editor');
+    this.editor.on('input', () => this.$emit('update:file', ({
+      path: this.currentFile.absolutePath,
+      content: this.editor.getValue(),
+    })));
     this.loadItems();
   },
 };
