@@ -15,9 +15,9 @@
         </q-menu>
       </div>
       <q-space />
-      <q-btn dense flat icon="minimize" />
-      <q-btn dense flat icon="crop_square" />
-      <q-btn dense flat icon="close" />
+      <q-btn dense flat icon="minimize" @click="minimize" />
+      <q-btn dense flat icon="crop_square" @click="maximize" />
+      <q-btn dense flat icon="close" @click="close" />
     </q-bar>
     <q-page-container>
       <router-view />
@@ -27,6 +27,7 @@
 
 <script>
 import { openURL } from 'quasar';
+import { remote } from 'electron';
 
 export default {
   name: 'MyLayout',
@@ -36,6 +37,20 @@ export default {
   },
   methods: {
     openURL,
+    minimize() {
+      remote.BrowserWindow.getFocusedWindow().minimize();
+    },
+    maximize() {
+      const win = remote.BrowserWindow.getFocusedWindow();
+      if (win.isMaximized()) {
+        win.unmaximize();
+      } else {
+        win.maximize();
+      }
+    },
+    close() {
+      remote.BrowserWindow.getFocusedWindow().close();
+    },
   },
 };
 </script>
