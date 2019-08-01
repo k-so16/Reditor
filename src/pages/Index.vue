@@ -4,16 +4,25 @@
       <!-- header -->
       <!-- directory path -->
       <div class="col-xs-12">
-        <q-input dense dark borderless :value="currentDir">
+        <q-field dense dark borderless>
           <template v-slot:prepend>
             <q-icon name="folder" />
           </template>
+          <template v-slot:control>
+            <q-breadcrumbs gutter="none" active-color="white">
+              <q-breadcrumbs-el
+                :label="item.name"
+                :key="item.absolutePath"
+                v-for="item in separatedCurrentDir"
+                @click="moveCurrentDir(item.absolutePath)" />
+            </q-breadcrumbs>
+          </template>
           <template v-slot:append>
-            <q-icon name="more_hoiz" class="cursor-pointer"
+            <q-icon name="more_horiz" class="cursor-pointer"
               @click="selectDirectoryViaDialog"
               />
           </template>
-        </q-input>
+        </q-field>
       </div>
     </div>
 
@@ -150,6 +159,12 @@ export default {
       if (!this.filterPattern) return this.list;
       const regex = new RegExp(this.filterPattern);
       return this.list.filter(x => regex.test(x.name));
+    },
+    separatedCurrentDir() {
+      return this.currentDir.split('/').reduce((acc, val) => acc.concat({
+        name: val,
+        absolutePath: [...acc.map(x => x.name), val].join('/'),
+      }), []);
     },
   },
   mounted() {
