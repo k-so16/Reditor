@@ -9,7 +9,7 @@
             <q-icon name="folder" />
           </template>
           <template v-slot:control>
-            <q-breadcrumbs gutter="none" active-color="white">
+            <q-breadcrumbs gutter="none" active-color="white" :separator="pathSeparator">
               <q-breadcrumbs-el
                 :label="item.name"
                 :key="item.absolutePath"
@@ -164,10 +164,13 @@ export default {
       return this.list.filter(x => regex.test(x.name));
     },
     separatedCurrentDir() {
-      return this.currentDir.split('/').reduce((acc, val) => acc.concat({
+      return this.currentDir.split(path.sep).reduce((acc, val) => acc.concat({
         name: val,
-        absolutePath: [...acc.map(x => x.name), val].join('/'),
+        absolutePath: [...acc.map(x => x.name), val].join(path.sep),
       }), []);
+    },
+    pathSeparator() {
+      return path.sep;
     },
   },
   mounted() {
