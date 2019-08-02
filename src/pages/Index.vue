@@ -11,6 +11,7 @@
           <template v-slot:control>
             <q-breadcrumbs gutter="none" active-color="white" :separator="pathSeparator">
               <q-breadcrumbs-el
+                class="cursor-pointer"
                 :label="item.name"
                 :key="item.absolutePath"
                 v-for="item in separatedCurrentDir"
