@@ -1,6 +1,6 @@
 {
   "name": "reditor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reinventing the Editor",
   "productName": "Reditor",
   "cordovaId": "org.cordova.quasar.app",
